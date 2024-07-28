@@ -8,17 +8,18 @@ import 'package:sportboo_mobile_client/modules/authentication/registration/regis
 import '../../../components/base_widget.dart';
 import '../../../components/button_widget.dart';
 import '../../../components/heading_widget.dart';
+import '../../../core/models/registration/response/user_registration_response.dart';
 import '../../../core/theme/colors.dart';
 import '../../../unils/navigation.dart';
 import '../../../unils/utils.dart';
 import '../login/login_view.dart';
+import 'view/enter_otp_screen.dart';
 
 class RegistrationView extends StatelessWidget {
   RegistrationView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return BaseWidget<RegistrationViewModel>(
       viewModel: RegistrationViewModel(),
       builder: (BuildContext context, RegistrationViewModel viewModel,
@@ -193,14 +194,18 @@ class RegistrationView extends StatelessWidget {
                     Gap(16.h),
                     AppButton(
                         text: 'Continue',
-                        onTap: () async {
-
-                            var result = await viewModel.onRegisterUser();
-
-                            if (result) {
-
-                            }
-
+                        onTap: () {
+                          // viewModel.onRegisterUser(context);
+                          PageRouter.gotoWidget(
+                              context,
+                              EnterOtpScreen(
+                                otpRecipient: "orimoladeeyimofe@gmail.com",
+                                data: UserRegistrationData(
+                                    fullname: 'eyimofe orimolade',
+                                    userId: 6,
+                                    email: 'orimoladeeyimofe@gmail.com',
+                                    sportbooId: ''),
+                              ));
                         }),
                     Gap(24.h),
                     Center(
@@ -223,7 +228,8 @@ class RegistrationView extends StatelessWidget {
                                   color: AppColors.primaryBase6),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => PageRouter.gotoWidget(
-                                      context, const LoginView(),
+                                      context,
+                                      const LoginView(),
                                     ),
                             ),
                           ],
@@ -240,7 +246,6 @@ class RegistrationView extends StatelessWidget {
       },
     );
   }
-
 }
 
 class AppCheckWidget extends StatefulWidget {

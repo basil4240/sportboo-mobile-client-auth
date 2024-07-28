@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 import '../../core/theme/colors.dart';
-import '../../models/competition.dart';
-import '../../models/team.dart';
+import '../../core/models/competition.dart';
+import '../../core/models/team.dart';
 
 
 class FavouriteTeamCard extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../shared/widgets/text_field.dart';
-import '../../../models/market_data.dart';
+import '../../core/models/market_data.dart';
 import '../../components/base_widget.dart';
 import '../../components/button_widget.dart';
 import '../../core/theme/colors.dart';

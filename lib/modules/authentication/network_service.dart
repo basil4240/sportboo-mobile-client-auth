@@ -1,5 +1,5 @@
-import '../../models/network_response.dart';
-import '../../models/sportboo_user/sportboo_user.dart';
+import '../../core/models/network_response.dart';
+import '../../core/models/sportboo_user/sportboo_user.dart';
 import '../../unils/constant.dart';
 import 'package:dio/dio.dart';
 

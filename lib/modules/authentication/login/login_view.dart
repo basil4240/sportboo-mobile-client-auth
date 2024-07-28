@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,7 +9,9 @@ import '../../../components/base_widget.dart';
 import '../../../components/button_widget.dart';
 import '../../../components/heading_widget.dart';
 import '../../../core/theme/colors.dart';
+import '../../../unils/navigation.dart';
 import '../../../unils/utils.dart';
+import '../registration/registration_view.dart';
 import 'login_viewmodel.dart';
 
 class LoginView extends StatelessWidget {
@@ -113,8 +116,7 @@ class LoginView extends StatelessWidget {
                         ),
                         Gap(24.h),
                         AppButton(
-                            text: 'Login',
-                            onTap: () => viewModel.onLoginUser()),
+                            text: 'Login', onTap: () => viewModel.loginUser()),
                         Gap(24.h),
                         const Center(
                           child: Text(
@@ -146,9 +148,9 @@ class LoginView extends StatelessWidget {
                         Gap(32.h),
                         Center(
                           child: RichText(
-                            text: const TextSpan(
+                            text: TextSpan(
                               children: [
-                                TextSpan(
+                                const TextSpan(
                                     text: 'Don’t have an account? ',
                                     style: TextStyle(
                                         fontFamily: 'Inter',
@@ -157,16 +159,16 @@ class LoginView extends StatelessWidget {
                                         color: AppColors.tertiary9)),
                                 TextSpan(
                                   text: 'Sign up',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontFamily: 'Inter',
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16,
                                       color: AppColors.primaryBase6),
-                                  // recognizer: TapGestureRecognizer()
-                                  //   ..onTap = () => PageRouter.gotoWidget(
-                                  //     context,
-                                  //     RegistrationView(),
-                                  // ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () => PageRouter.gotoWidget(
+                                          context,
+                                          RegistrationView(),
+                                        ),
                                 ),
                               ],
                             ),

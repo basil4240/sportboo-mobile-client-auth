@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:flutter/material.dart';
 
 import '../../components/button_widget.dart';
 import '../../core/theme/colors.dart';
@@ -45,13 +46,13 @@ class SuccessView extends StatelessWidget {
                       Gap(40.h),
                       Text(
                         'Success',
-                        style: getTextTheme(context).headline4,
+                        style: getTextTheme(context).headlineMedium,
                       ),
                       Gap(16.h),
                       Text(
                         message,
                         textAlign: TextAlign.center,
-                        style: getTextTheme(context).bodyText1!.copyWith(
+                        style: getTextTheme(context).bodyMedium!.copyWith(
                           color: AppColors.tertiary8,
                         ),
                       ),

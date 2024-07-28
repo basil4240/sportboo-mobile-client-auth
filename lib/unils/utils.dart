@@ -1,16 +1,11 @@
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:localstorage/localstorage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../components/sportboo_snack_bar.dart';
 import '../core/theme/colors.dart';
-import 'local_storage.dart';
 
 const timeOutTime = 60;
 
@@ -121,7 +116,7 @@ buildShowDialog(BuildContext context) {
 String? encodeQueryParameters(Map<String, String> params) {
   return params.entries
       .map((MapEntry<String, String> e) =>
-  '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
       .join('&');
 }
 
@@ -134,31 +129,33 @@ Future<void> launchSite({required String url}) async {
   }
 }
 
-sendMail(){
+sendMail() {
   final Uri emailLaunchUri = Uri(
     scheme: 'mailto',
     path: "sportboo.com",
     query: encodeQueryParameters(<String, String>{
-      'subject':"",
+      'subject': "",
     }),
   );
   launchUrl(emailLaunchUri);
 }
 
-
 void showSportbooLoader() {
   SmartDialog.show(builder: (_) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColors.primaryBase6.withOpacity(0.2),
-      ),
-      child: Center(
-        child: LoadingAnimationWidget.discreteCircle(
-          color: AppColors.primaryBase6,
-          secondRingColor: AppColors.primary3,
-          size: 60,
+    return InkWell(
+      onTap: () => closeSportbooLoader(),
+      child: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: AppColors.primaryBase6.withOpacity(0.2),
+        ),
+        child: Center(
+          child: LoadingAnimationWidget.discreteCircle(
+            color: AppColors.primaryBase6,
+            secondRingColor: AppColors.primary3,
+            size: 60,
+          ),
         ),
       ),
     );
@@ -204,7 +201,7 @@ String generateCompareOdd(
         element['bookmaker_id'] == bookieId &&
         element['market_id'] == marketId &&
         element['label'] == label)['value'];
-  } on StateError catch (e) {
+  } on StateError {
     return 'N/A';
   }
 }

@@ -1,4 +1,4 @@
-import '../../../models/market_data.dart';
+import '../../core/models/market_data.dart';
 import '../../components/base_viewmodel.dart';
 
 class FilterBottomSheetModel extends BaseViewModel {

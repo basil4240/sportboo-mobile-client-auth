@@ -4,25 +4,35 @@ import 'dart:developer';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:sportboo_mobile_client/modules/authentication/registration/view/phone_verification.dart';
 
 import '../../../../components/button_widget.dart';
+import '../../../../components/sportboo_snack_bar.dart';
+import '../../../../core/io/api/account_services/account_services.dart';
+import '../../../../core/io/api/handlers/error_handler.dart';
+import '../../../../core/models/api_response.dart/api_response.dart';
+import '../../../../core/models/registration/email_verification/resend_otp_request.dart';
+import '../../../../core/models/registration/email_verification/verify_email_request.dart';
+import '../../../../core/models/registration/response/user_registration_response.dart';
 import '../../../../core/theme/colors.dart';
+import '../../../../unils/navigation.dart';
 import '../../../../unils/utils.dart';
 
 class EnterOtpScreen extends StatefulWidget {
   const EnterOtpScreen(
       {super.key,
-      required this.nextScreen,
+      this.nextScreen,
       this.fromForgetPassword = false,
       required this.otpRecipient,
       this.data});
 
-  final Map? data;
+  final UserRegistrationData? data;
   final bool fromForgetPassword;
-  final Widget nextScreen;
+  final Widget? nextScreen;
   final String otpRecipient;
 
   @override
@@ -31,6 +41,7 @@ class EnterOtpScreen extends StatefulWidget {
 
 class _EnterOtpScreenState extends State<EnterOtpScreen> {
   String pinCode = "";
+  AccountsService accountsService = AccountsService();
   BuildContext? mcontext;
 
   String? _resendsIn;
@@ -50,7 +61,6 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
         setState(() {
           _resendsIn = timeRemaining.inSeconds.toString();
         });
-
       },
       onFinish: () {
         setState(() {
@@ -62,8 +72,6 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
 
   void _run() async {
     showSportbooLoader();
-
-
   }
 
   @override
@@ -176,14 +184,7 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                   text: 'Submit',
                   onTap: () async {
                     if (pinCode.isNotEmpty) {
-                      if (widget.otpRecipient.contains('@')) {
-                        // verify email
-
-                      } else {
-                        // verify phone
-                        showSportbooLoader();
-
-                      }
+                      submit(context, pinCode, 7);
                     } else {
                       showSportbooSnackBar('Please provide your OTP', (id) {});
                     }
@@ -200,67 +201,71 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
                             color: AppColors.tertiary8)),
-                    if(_resendsIn == null) TextSpan(
-                      text: 'Resend Code',
-                      style: const TextStyle(
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: AppColors.primaryBase6),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () async {
-                          if (widget.fromForgetPassword) {
-                            _run();
-                            // load
-
-                          }
-                          CountdownTimer(
-                            duration: const Duration(seconds: 60),
-                            interval: const Duration(seconds: 1),
-                            onTick: (timeRemaining) {
-                              setState(() {
-                                _resendsIn = timeRemaining.inSeconds.toString();
-                              });
-
-                            },
-                            onFinish: () {
-                              setState(() {
-                                _resendsIn = null;
-                              });
-                            },
-                          );
-                        },
-                    ),
-                    if(_resendsIn != null) TextSpan(
-                      text: _resendsIn,
-                      style: const TextStyle(
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: AppColors.primaryBase6),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () async {
-                          if (widget.fromForgetPassword) {
-                            _run();
-                            // load
-                          }
-                        },
-                    ),
-                    if(_resendsIn != null) TextSpan(
-                      text: ' Seconds',
-                      style: const TextStyle(
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: AppColors.primaryBase6),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () async {
-                          if (widget.fromForgetPassword) {
-                            _run();
-                            // load
-                          }
-                        },
-                    ),
+                    if (_resendsIn == null)
+                      TextSpan(
+                        text: 'Resend Code',
+                        style: const TextStyle(
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                            color: AppColors.primaryBase6),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () async {
+                            if (widget.fromForgetPassword) {
+                              _run();
+                              // load
+                            } else {
+                              resendCode(context, widget.otpRecipient);
+                            }
+                            CountdownTimer(
+                              duration: const Duration(seconds: 60),
+                              interval: const Duration(seconds: 1),
+                              onTick: (timeRemaining) {
+                                setState(() {
+                                  _resendsIn =
+                                      timeRemaining.inSeconds.toString();
+                                });
+                              },
+                              onFinish: () {
+                                setState(() {
+                                  _resendsIn = null;
+                                });
+                              },
+                            );
+                          },
+                      ),
+                    if (_resendsIn != null)
+                      TextSpan(
+                        text: _resendsIn,
+                        style: const TextStyle(
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                            color: AppColors.primaryBase6),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () async {
+                            if (widget.fromForgetPassword) {
+                              _run();
+                              // load
+                            }
+                          },
+                      ),
+                    if (_resendsIn != null)
+                      TextSpan(
+                        text: ' Seconds',
+                        style: const TextStyle(
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                            color: AppColors.primaryBase6),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () async {
+                            if (widget.fromForgetPassword) {
+                              _run();
+                              // load
+                            }
+                          },
+                      ),
                   ],
                 ),
               ),
@@ -272,6 +277,76 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
     );
   }
 
+  Future submit(BuildContext context, String otp, int userID) async {
+    VerifyEmailOtpRequest request =
+        VerifyEmailOtpRequest(otp: otp, userId: userID);
+    showSportbooLoader();
+
+    ApiResponse response =
+        await accountsService.verifyEmail(request).onError((error, stackTrace) {
+      ApiResponse(
+        message: AppErrorHandler.getErrorMessage(error),
+      );
+    });
+
+    if (response.isSuccess) {
+      closeSportbooLoader();
+      if (context.mounted) {
+        PageRouter.gotoWidget(
+          context,
+          const PhoneVerificationScreen(),
+        );
+      }
+    } else {
+      closeSportbooLoader();
+      SmartDialog.showNotify(
+          alignment: Alignment.topCenter,
+          msg: response.message.toString(),
+          notifyType: NotifyType.error,
+          displayTime: const Duration(seconds: 4),
+          builder: (_) {
+            return SafeArea(
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(16, 5, 16, 0),
+
+                // width: 200, height: 100,
+                child: SportbooSnackBar(
+                    message: response.message.toString(),
+                    onView: (id) => () {}),
+              ),
+            );
+          });
+      showSportbooSnackBar(response.message.toString(), (id) => () {});
+    }
+  }
+
+  Future resendCode(BuildContext context, String email) async {
+    ResendOtpRequest request = ResendOtpRequest(
+      email: email,
+    );
+    showSportbooLoader();
+
+    ApiResponse response = await accountsService.resendOtp(request);
+
+    closeSportbooLoader();
+    SmartDialog.showNotify(
+        alignment: Alignment.topCenter,
+        msg: response.message.toString(),
+        notifyType: NotifyType.error,
+        displayTime: const Duration(seconds: 4),
+        builder: (_) {
+          return SafeArea(
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(16, 5, 16, 0),
+
+              // width: 200, height: 100,
+              child: SportbooSnackBar(
+                  message: response.message.toString(), onView: (id) => () {}),
+            ),
+          );
+        });
+    showSportbooSnackBar(response.message.toString(), (id) => () {});
+  }
 }
 
 class CountdownTimer {

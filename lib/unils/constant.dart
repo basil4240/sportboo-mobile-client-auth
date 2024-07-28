@@ -2,6 +2,20 @@ import 'package:localstorage/localstorage.dart';
 
 import 'local_storage.dart';
 
+class AppConstants {
+  AppConstants._();
+
+  static String accessToken = "";
+  static String fcmToken = "";
+
+  static String capitalizeFirstLetterOfEachWord(String text) {
+    return text.split(' ').map((word) {
+      if (word.isEmpty) return word;
+      return word[0].toUpperCase() + word.substring(1);
+    }).join(' ');
+  }
+}
+
 const String baseUrl = 'https://sportboo-server.onrender.com/api/v1';
 const String twitter = "https://twitter.com/Sportbooapp";
 const String facebook = "https://www.facebook.com/profile.php?id=61550240214576";
@@ -19,5 +33,3 @@ const channelKey = 'SportBoo Channel';
 const channelName = 'SportBoo';
 const description = 'SportBoo Notification Channel';
 
-enum MessageStatus{sending}
-enum ConversationType{inbox,sent,draft,}

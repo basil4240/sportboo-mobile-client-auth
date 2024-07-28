@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
-import 'package:sportboo_mobile_client/models/profile_image_model.dart';
+import 'package:sportboo_mobile_client/core/models/profile_image_model.dart';
 import 'package:sportboo_mobile_client/unils/endpoint.dart';
 import 'package:sportboo_mobile_client/unils/request.dart';
 import 'package:sportboo_mobile_client/unils/utils.dart';
 
-import '../../models/sportboo_user/sportboo_user.dart';
+import '../models/sportboo_user/sportboo_user.dart';
 import '../services/file_picker_service.dart';
 
 class SportbooUserProvider extends ChangeNotifier {

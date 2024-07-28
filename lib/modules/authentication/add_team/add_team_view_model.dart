@@ -1,5 +1,5 @@
 import '../../../components/base_viewmodel.dart';
-import '../../../models/team.dart';
+import '../../../core/models/team.dart';
 import '../../../shared/widgets/competition_team_filter_bottom_sheet.dart';
 import '../../../unils/utils.dart';
 

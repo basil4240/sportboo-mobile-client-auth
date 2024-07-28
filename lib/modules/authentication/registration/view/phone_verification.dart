@@ -7,8 +7,6 @@ import '../../../../components/button_widget.dart';
 import '../../../../components/heading_widget.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../unils/utils.dart';
-import '../../age_confirmation/age_confirmation_view.dart';
-import 'enter_otp_screen.dart';
 
 class PhoneVerificationScreen extends StatefulWidget {
   const PhoneVerificationScreen({super.key});
@@ -26,6 +24,8 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
           Validators.required,
         ]),
       });
+
+
 
   @override
   void initState() {
@@ -141,6 +141,8 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
           ),
         ));
   }
+
+   
 
   void _navigate(String phone, Map? data) {
     // PageRouter.gotoWidget(

@@ -1,5 +1,5 @@
 import '../../../components/base_viewmodel.dart';
-import '../../../models/competition.dart';
+import '../../../core/models/competition.dart';
 
 class AddCompetitionsViewModel extends BaseViewModel {
   final List<Competition> _competitions = [];
