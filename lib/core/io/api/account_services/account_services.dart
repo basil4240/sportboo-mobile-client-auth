@@ -34,6 +34,7 @@ abstract class AccountsService {
   @POST("/register/otp")
   Future resendOtp(@Body() ResendOtpRequest request);
 
-   @POST("/register/phone")
+  @POST("/register/phone")
   Future registerPhone(@Body() VerifyPhoneRequest request);
+
 }

@@ -91,11 +91,15 @@ class RegistrationViewModel extends BaseViewModel {
           }
         } else if (response.isSuccess == false) {
           log(":::::");
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(response.message.toString()),
-            ),
-          );
+
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     content: Text(response.message.toString()),
+          //   ),
+          // );
+
+          showSportbooSnackBar(response.message.toString(), (_) {});
+
           closeSportbooLoader();
         }
       } finally {
