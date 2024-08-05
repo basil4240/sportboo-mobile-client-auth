@@ -31,7 +31,7 @@ class LoginViewModel extends BaseViewModel {
   bool get showHidePassword => _showHidePassword;
   AccountsService accountsService = AccountsService();
 
-  final form = FormGroup(
+  final loginForm = FormGroup(
     {
       'email': FormControl<String>(
           validators: [Validators.required, Validators.email]),
@@ -44,10 +44,10 @@ class LoginViewModel extends BaseViewModel {
   );
 
   Future<void> loginUser() async {
-    if (form.valid) {
+    if (loginForm.valid) {
       LoginRequest request = LoginRequest(
-          email: form.control('email').value,
-          password: form.control('password').value);
+          email: loginForm.control('email').value,
+          password: loginForm.control('password').value);
       showSportbooLoader();
       try {
         ApiResponse response =
@@ -70,7 +70,7 @@ class LoginViewModel extends BaseViewModel {
           if (context.mounted) {
             sendCode(
               context,
-              form.control('email').value,
+              loginForm.control('email').value,
             );
           }
         } else {
@@ -102,14 +102,14 @@ class LoginViewModel extends BaseViewModel {
   }
 
   Future<void> onLoginUser() async {
-    if (form.valid) {
+    if (loginForm.valid) {
       // show progressbar
       showSportbooLoader();
 
       // try to log the user
       var response = await _authenticationService.loginWithEmail(
-          email: form.control('email').value,
-          password: form.control('password').value);
+          email: loginForm.control('email').value,
+          password: loginForm.control('password').value);
 
       if (response.isError) {
         // stop loading bar
@@ -125,7 +125,7 @@ class LoginViewModel extends BaseViewModel {
       // update and navigate
       // updateAndNavigate(response);
     } else {
-      form.markAllAsTouched();
+      loginForm.markAllAsTouched();
     }
 
     return;

@@ -38,7 +38,7 @@ class LoginView extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.h),
                   child: ReactiveForm(
-                    formGroup: viewModel.form,
+                    formGroup: viewModel.loginForm,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
