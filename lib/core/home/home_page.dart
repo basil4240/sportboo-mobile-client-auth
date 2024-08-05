@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:no_screenshot/no_screenshot.dart';
 import 'package:provider/provider.dart';
 import 'package:sportboo_mobile_client/core/home/sportboo_user_provider.dart';
 import 'package:sportboo_mobile_client/core/home/tab_navigator.dart';
@@ -9,7 +8,6 @@ import 'package:sportboo_mobile_client/core/home/tab_navigator.dart';
 // import '../../modules/profile/sub_screens/account/verification/account_verification_viewmodel.dart';
 // import '../../modules/profile/sub_screens/activities/tabs/my_activities/viewmodel/my_activities_viewmodel.dart';
 import '../../unils/local_storage.dart';
-import '../../unils/utils.dart';
 import '../providers/notification_provider.dart';
 import '../theme/colors.dart';
 

@@ -197,17 +197,6 @@ class RegistrationView extends StatelessWidget {
                         text: 'Continue',
                         onTap: () {
                           viewModel.onRegisterUser(context);
-                          // PageRouter.gotoWidget(
-                          //     context,
-                          //     const EnterOtpScreen(
-                          //       otpRecipient: "orimoladeeyimofe@gmail.com",
-                          //       from: 'registration',
-                          //       data: UserRegistrationData(
-                          //           fullname: 'eyimofe orimolade',
-                          //           userId: 7,
-                          //           email: 'orimoladeeyimofe@gmail.com',
-                          //           sportbooId: ''),
-                          //     ));
                         }),
                     Gap(24.h),
                     Center(

@@ -1,6 +1,4 @@
-import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sportboo_mobile_client/core/models/profile_image_model.dart';
 import 'package:sportboo_mobile_client/unils/endpoint.dart';
@@ -49,7 +47,7 @@ class SportbooUserProvider extends ChangeNotifier {
           .pickImageFromGallery();
       if (result != null) {
        // File selectedImage = File(result.files.single.path ?? '');
-        String imagePath = result.path ?? '';
+        String imagePath = result.path;
        // String fileName = result.files.first.name;
         if (kDebugMode) {
           print('Selected file path in viewModel: $imagePath');
