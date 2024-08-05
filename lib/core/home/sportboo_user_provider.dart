@@ -7,23 +7,24 @@ import 'package:sportboo_mobile_client/unils/endpoint.dart';
 import 'package:sportboo_mobile_client/unils/request.dart';
 import 'package:sportboo_mobile_client/unils/utils.dart';
 
-import '../models/sportboo_user/sportboo_user.dart';
+import '../models/login/response/login_response.dart';
+// import '../models/sportboo_user/sportboo_user.dart';
 import '../services/file_picker_service.dart';
 
 class SportbooUserProvider extends ChangeNotifier {
-  SportbooUser? _sportbooUser;
+  UserData? _sportbooUser;
   ImageData? _profileImage;
   String _photo = '';
   String get photo => _photo;
   ImageData? get profileImage => _profileImage;
 
   // Getter method
-  SportbooUser? get sportbooUser {
+  UserData? get sportbooUser {
     return _sportbooUser;
   }
 
   // Setter method
-  set sportbooUser(SportbooUser? value) {
+  set sportbooUser(UserData? value) {
     _sportbooUser = value;
     notifyListeners();
   }

@@ -26,7 +26,7 @@ class UserData with _$UserData {
     required String iosShareLink,
     required String sportbooId,
     String? phone,
-    required String profileImgUrl,
+    required String? profileImgUrl,
     String? deviceId,
     required String accountStatus,
     required int unreadNotifications,

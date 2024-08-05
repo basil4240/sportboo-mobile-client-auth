@@ -8,15 +8,13 @@ import 'package:sportboo_mobile_client/modules/authentication/registration/regis
 import '../../../components/base_widget.dart';
 import '../../../components/button_widget.dart';
 import '../../../components/heading_widget.dart';
-import '../../../core/models/registration/response/user_registration_response.dart';
 import '../../../core/theme/colors.dart';
 import '../../../unils/navigation.dart';
 import '../../../unils/utils.dart';
 import '../login/login_view.dart';
-import 'view/enter_otp_screen.dart';
 
 class RegistrationView extends StatelessWidget {
-  RegistrationView({Key? key}) : super(key: key);
+  const RegistrationView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,22 +64,25 @@ class RegistrationView extends StatelessWidget {
                       keyboardType: TextInputType.emailAddress,
                     ),
                     Gap(24.h),
-                    ReactiveTextField(
-                      autocorrect: false,
-                      formControlName: 'username',
-                      style: const TextStyle(
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                          color: AppColors.tertiaryBase10),
-                      decoration: authFormFieldInputDecoration(
-                          hintText: 'Enter Username',
-                          labelText: 'Username',
-                          context: context),
-                      validationMessages: {
-                        'required': (error) => 'Username field is required',
-                      },
-                      keyboardType: TextInputType.emailAddress,
+                    ReactiveForm(
+                      formGroup: viewModel.form2,
+                      child: ReactiveTextField(
+                        autocorrect: false,
+                        formControlName: 'username',
+                        style: const TextStyle(
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: AppColors.tertiaryBase10),
+                        decoration: authFormFieldInputDecoration(
+                            hintText: 'Enter Username',
+                            labelText: 'Username',
+                            context: context),
+                        validationMessages: {
+                          'required': (error) => 'Username field is required',
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                      ),
                     ),
                     Gap(24.h),
                     ReactiveTextField(
@@ -195,17 +196,18 @@ class RegistrationView extends StatelessWidget {
                     AppButton(
                         text: 'Continue',
                         onTap: () {
-                          // viewModel.onRegisterUser(context);
-                          PageRouter.gotoWidget(
-                              context,
-                              EnterOtpScreen(
-                                otpRecipient: "orimoladeeyimofe@gmail.com",
-                                data: UserRegistrationData(
-                                    fullname: 'eyimofe orimolade',
-                                    userId: 6,
-                                    email: 'orimoladeeyimofe@gmail.com',
-                                    sportbooId: ''),
-                              ));
+                          viewModel.onRegisterUser(context);
+                          // PageRouter.gotoWidget(
+                          //     context,
+                          //     const EnterOtpScreen(
+                          //       otpRecipient: "orimoladeeyimofe@gmail.com",
+                          //       from: 'registration',
+                          //       data: UserRegistrationData(
+                          //           fullname: 'eyimofe orimolade',
+                          //           userId: 7,
+                          //           email: 'orimoladeeyimofe@gmail.com',
+                          //           sportbooId: ''),
+                          //     ));
                         }),
                     Gap(24.h),
                     Center(

@@ -7,7 +7,9 @@ import 'package:sportboo_mobile_client/core/models/validate_username/request/val
 
 import '../../../models/login/request/login_request.dart';
 import '../../../models/registration/email_verification/verify_email_request.dart';
-import '../../../models/registration/phone_verification.dart/verify_phone_request.dart';
+import '../../../models/registration/phone_verification.dart/phone_otp/phone_otp_request.dart';
+import '../../../models/registration/phone_verification.dart/resend_otp/resend_phone_otp.dart';
+import '../../../models/registration/phone_verification.dart/verify_phone_otp/verify_otp_phone.dart';
 import '../endpoints.dart';
 
 part 'account_services.g.dart';
@@ -34,7 +36,12 @@ abstract class AccountsService {
   @POST("/register/otp")
   Future resendOtp(@Body() ResendOtpRequest request);
 
-  @POST("/register/phone")
-  Future registerPhone(@Body() VerifyPhoneRequest request);
+   @POST("/register/phone")
+  Future registerPhone(@Body() PhoneOtpRequest request);
 
+  @POST("/register/phone/verify")
+  Future verifyPhone(@Body() VerifyPhoneRequest request);
+
+   @POST("/register/phone/otp")
+  Future reSendOtpPhone(@Body() ResendPhoneOtp request);
 }

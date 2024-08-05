@@ -29,7 +29,7 @@ _$UserDataImpl _$$UserDataImplFromJson(Map<String, dynamic> json) =>
       iosShareLink: json['iosShareLink'] as String,
       sportbooId: json['sportbooId'] as String,
       phone: json['phone'] as String?,
-      profileImgUrl: json['profileImgUrl'] as String,
+      profileImgUrl: json['profileImgUrl'] as String?,
       deviceId: json['deviceId'] as String?,
       accountStatus: json['accountStatus'] as String,
       unreadNotifications: (json['unreadNotifications'] as num).toInt(),

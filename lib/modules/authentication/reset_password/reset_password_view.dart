@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:sportboo_mobile_client/modules/authentication/reset_password/reset_password_viewmodel.dart';
 import '../../../components/base_widget.dart';
 import '../../../components/button_widget.dart';
 import '../../../core/theme/colors.dart';
 import '../../../unils/utils.dart';
-import '../login/login_view.dart';
 
 class ResetPasswordView extends StatelessWidget {
   const ResetPasswordView({Key? key}) : super(key: key);

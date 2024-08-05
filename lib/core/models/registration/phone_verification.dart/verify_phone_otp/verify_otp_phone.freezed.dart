@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'verify_phone_request.dart';
+part of 'verify_otp_phone.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -20,7 +20,8 @@ VerifyPhoneRequest _$VerifyPhoneRequestFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$VerifyPhoneRequest {
-  String get phone => throw _privateConstructorUsedError;
+  String get otp => throw _privateConstructorUsedError;
+  int get userId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $VerifyPhoneRequestCopyWith<$Res> {
           VerifyPhoneRequest value, $Res Function(VerifyPhoneRequest) then) =
       _$VerifyPhoneRequestCopyWithImpl<$Res, VerifyPhoneRequest>;
   @useResult
-  $Res call({String phone});
+  $Res call({String otp, int userId});
 }
 
 /// @nodoc
@@ -50,13 +51,18 @@ class _$VerifyPhoneRequestCopyWithImpl<$Res, $Val extends VerifyPhoneRequest>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? phone = null,
+    Object? otp = null,
+    Object? userId = null,
   }) {
     return _then(_value.copyWith(
-      phone: null == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
+      otp: null == otp
+          ? _value.otp
+          : otp // ignore: cast_nullable_to_non_nullable
               as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -69,7 +75,7 @@ abstract class _$$VerifyPhoneRequestImplCopyWith<$Res>
       __$$VerifyPhoneRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String phone});
+  $Res call({String otp, int userId});
 }
 
 /// @nodoc
@@ -83,13 +89,18 @@ class __$$VerifyPhoneRequestImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? phone = null,
+    Object? otp = null,
+    Object? userId = null,
   }) {
     return _then(_$VerifyPhoneRequestImpl(
-      phone: null == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
+      otp: null == otp
+          ? _value.otp
+          : otp // ignore: cast_nullable_to_non_nullable
               as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -97,17 +108,19 @@ class __$$VerifyPhoneRequestImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$VerifyPhoneRequestImpl implements _VerifyPhoneRequest {
-  const _$VerifyPhoneRequestImpl({required this.phone});
+  const _$VerifyPhoneRequestImpl({required this.otp, required this.userId});
 
   factory _$VerifyPhoneRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$VerifyPhoneRequestImplFromJson(json);
 
   @override
-  final String phone;
+  final String otp;
+  @override
+  final int userId;
 
   @override
   String toString() {
-    return 'VerifyPhoneRequest(phone: $phone)';
+    return 'VerifyPhoneRequest(otp: $otp, userId: $userId)';
   }
 
   @override
@@ -115,12 +128,13 @@ class _$VerifyPhoneRequestImpl implements _VerifyPhoneRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$VerifyPhoneRequestImpl &&
-            (identical(other.phone, phone) || other.phone == phone));
+            (identical(other.otp, otp) || other.otp == otp) &&
+            (identical(other.userId, userId) || other.userId == userId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, phone);
+  int get hashCode => Object.hash(runtimeType, otp, userId);
 
   @JsonKey(ignore: true)
   @override
@@ -138,14 +152,17 @@ class _$VerifyPhoneRequestImpl implements _VerifyPhoneRequest {
 }
 
 abstract class _VerifyPhoneRequest implements VerifyPhoneRequest {
-  const factory _VerifyPhoneRequest({required final String phone}) =
-      _$VerifyPhoneRequestImpl;
+  const factory _VerifyPhoneRequest(
+      {required final String otp,
+      required final int userId}) = _$VerifyPhoneRequestImpl;
 
   factory _VerifyPhoneRequest.fromJson(Map<String, dynamic> json) =
       _$VerifyPhoneRequestImpl.fromJson;
 
   @override
-  String get phone;
+  String get otp;
+  @override
+  int get userId;
   @override
   @JsonKey(ignore: true)
   _$$VerifyPhoneRequestImplCopyWith<_$VerifyPhoneRequestImpl> get copyWith =>

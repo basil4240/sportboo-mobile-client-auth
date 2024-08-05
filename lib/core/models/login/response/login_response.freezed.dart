@@ -196,7 +196,7 @@ mixin _$UserData {
   String get iosShareLink => throw _privateConstructorUsedError;
   String get sportbooId => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
-  String get profileImgUrl => throw _privateConstructorUsedError;
+  String? get profileImgUrl => throw _privateConstructorUsedError;
   String? get deviceId => throw _privateConstructorUsedError;
   String get accountStatus => throw _privateConstructorUsedError;
   int get unreadNotifications => throw _privateConstructorUsedError;
@@ -237,7 +237,7 @@ abstract class $UserDataCopyWith<$Res> {
       String iosShareLink,
       String sportbooId,
       String? phone,
-      String profileImgUrl,
+      String? profileImgUrl,
       String? deviceId,
       String accountStatus,
       int unreadNotifications,
@@ -284,7 +284,7 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
     Object? iosShareLink = null,
     Object? sportbooId = null,
     Object? phone = freezed,
-    Object? profileImgUrl = null,
+    Object? profileImgUrl = freezed,
     Object? deviceId = freezed,
     Object? accountStatus = null,
     Object? unreadNotifications = null,
@@ -337,10 +337,10 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      profileImgUrl: null == profileImgUrl
+      profileImgUrl: freezed == profileImgUrl
           ? _value.profileImgUrl
           : profileImgUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       deviceId: freezed == deviceId
           ? _value.deviceId
           : deviceId // ignore: cast_nullable_to_non_nullable
@@ -479,7 +479,7 @@ abstract class _$$UserDataImplCopyWith<$Res>
       String iosShareLink,
       String sportbooId,
       String? phone,
-      String profileImgUrl,
+      String? profileImgUrl,
       String? deviceId,
       String accountStatus,
       int unreadNotifications,
@@ -531,7 +531,7 @@ class __$$UserDataImplCopyWithImpl<$Res>
     Object? iosShareLink = null,
     Object? sportbooId = null,
     Object? phone = freezed,
-    Object? profileImgUrl = null,
+    Object? profileImgUrl = freezed,
     Object? deviceId = freezed,
     Object? accountStatus = null,
     Object? unreadNotifications = null,
@@ -584,10 +584,10 @@ class __$$UserDataImplCopyWithImpl<$Res>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      profileImgUrl: null == profileImgUrl
+      profileImgUrl: freezed == profileImgUrl
           ? _value.profileImgUrl
           : profileImgUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       deviceId: freezed == deviceId
           ? _value.deviceId
           : deviceId // ignore: cast_nullable_to_non_nullable
@@ -699,7 +699,7 @@ class _$UserDataImpl implements _UserData {
   @override
   final String? phone;
   @override
-  final String profileImgUrl;
+  final String? profileImgUrl;
   @override
   final String? deviceId;
   @override
@@ -840,7 +840,7 @@ abstract class _UserData implements UserData {
       required final String iosShareLink,
       required final String sportbooId,
       final String? phone,
-      required final String profileImgUrl,
+      required final String? profileImgUrl,
       final String? deviceId,
       required final String accountStatus,
       required final int unreadNotifications,
@@ -878,7 +878,7 @@ abstract class _UserData implements UserData {
   @override
   String? get phone;
   @override
-  String get profileImgUrl;
+  String? get profileImgUrl;
   @override
   String? get deviceId;
   @override

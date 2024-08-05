@@ -45,6 +45,13 @@ class RegistrationViewModel extends BaseViewModel {
       Validators.minLength(8),
       Validators.maxLength(20)
     ]),
+  });
+
+  final form2 = FormGroup({
+    'username': FormControl<String>(validators: [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
   }, asyncValidators: [
     UsernameAsyncValidator()
   ]);
@@ -86,6 +93,7 @@ class RegistrationViewModel extends BaseViewModel {
               EnterOtpScreen(
                 otpRecipient: form.control('email').value,
                 data: resp.data,
+                from: 'registration',
               ),
             );
           }

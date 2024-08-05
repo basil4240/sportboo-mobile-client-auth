@@ -18,7 +18,9 @@ class ResponseHandlers {
           requestOptions: response.requestOptions,
           data: ApiResponse(
             isSuccess: true,
-            message: response.statusMessage,
+            message: response.statusMessage is String
+                ? response.statusMessage
+                : response.data is List,
             data: response.data is String
                 ? null
                 : response.data is List

@@ -1,19 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'verify_phone_request.dart';
+part of 'resend_phone_otp.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$VerifyPhoneRequestImpl _$$VerifyPhoneRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$VerifyPhoneRequestImpl(
+_$ResendPhoneOtpImpl _$$ResendPhoneOtpImplFromJson(Map<String, dynamic> json) =>
+    _$ResendPhoneOtpImpl(
+      email: json['email'] as String,
       phone: json['phone'] as String,
     );
 
-Map<String, dynamic> _$$VerifyPhoneRequestImplToJson(
-        _$VerifyPhoneRequestImpl instance) =>
+Map<String, dynamic> _$$ResendPhoneOtpImplToJson(
+        _$ResendPhoneOtpImpl instance) =>
     <String, dynamic>{
+      'email': instance.email,
       'phone': instance.phone,
     };

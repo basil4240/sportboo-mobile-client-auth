@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +13,8 @@ import '../../../core/io/api/handlers/error_handler.dart';
 import '../../../core/models/api_response.dart/api_response.dart';
 import '../../../core/models/login/request/login_request.dart';
 import '../../../core/models/login/response/login_response.dart';
-import '../../../core/models/network_response.dart';
+// import '../../../core/models/network_response.dart';
+import '../../../core/models/registration/email_verification/resend_otp_request.dart';
 import '../../../unils/constant.dart';
 import '../../../unils/navigation.dart';
 import '../network_service.dart';
@@ -61,11 +61,18 @@ class LoginViewModel extends BaseViewModel {
           LoginResponse resp = LoginResponse.fromJson(response.data!);
           // stateValues.user = resp;
           AppConstants.accessToken = resp.data.accessToken;
-
+          updateAndNavigate(resp);
           PageRouter.gotoWidget(
             context,
             const HomePage(),
           );
+        } else if (response.statusCode == 401) {
+          if (context.mounted) {
+            sendCode(
+              context,
+              form.control('email').value,
+            );
+          }
         } else {
           closeSportbooLoader();
           SmartDialog.showNotify(
@@ -116,7 +123,7 @@ class LoginViewModel extends BaseViewModel {
       closeSportbooLoader();
 
       // update and navigate
-      updateAndNavigate(response);
+      // updateAndNavigate(response);
     } else {
       form.markAllAsTouched();
     }
@@ -129,7 +136,35 @@ class LoginViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void updateAndNavigate(NetworkResponse response) {
+  Future sendCode(BuildContext context, String email) async {
+    ResendOtpRequest request = ResendOtpRequest(
+      email: email,
+    );
+    showSportbooLoader();
+
+    ApiResponse response = await accountsService.resendOtp(request);
+
+    closeSportbooLoader();
+    SmartDialog.showNotify(
+        alignment: Alignment.topCenter,
+        msg: response.message.toString(),
+        notifyType: NotifyType.error,
+        displayTime: const Duration(seconds: 4),
+        builder: (_) {
+          return SafeArea(
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(16, 5, 16, 0),
+
+              // width: 200, height: 100,
+              child: SportbooSnackBar(
+                  message: response.message.toString(), onView: (id) => () {}),
+            ),
+          );
+        });
+    showSportbooSnackBar(response.message.toString(), (id) => () {});
+  }
+
+  void updateAndNavigate(LoginResponse response) {
     // try to log the user in (ie navigate to home view)
     Provider.of<SportbooUserProvider>(context, listen: false).sportbooUser =
         response.data;

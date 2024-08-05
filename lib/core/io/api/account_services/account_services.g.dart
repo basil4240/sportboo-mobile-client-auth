@@ -151,7 +151,7 @@ class _AccountsService implements AccountsService {
   }
 
   @override
-  Future<dynamic> registerPhone(VerifyPhoneRequest request) async {
+  Future<dynamic> registerPhone(PhoneOtpRequest request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -164,6 +164,58 @@ class _AccountsService implements AccountsService {
         .compose(
           _dio.options,
           '/register/phone',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final _value = _result.data;
+    return _value;
+  }
+
+  @override
+  Future<dynamic> verifyPhone(VerifyPhoneRequest request) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = request;
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/register/phone/verify',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final _value = _result.data;
+    return _value;
+  }
+
+  @override
+  Future<dynamic> reSendOtpPhone(ResendPhoneOtp request) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = request;
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/register/phone/otp',
           queryParameters: queryParameters,
           data: _data,
         )

@@ -1,15 +1,28 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:gap/gap.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
+import 'package:sportboo_mobile_client/core/models/registration/phone_verification.dart/phone_otp/phone_otp_request.dart';
 import '../../../../components/button_widget.dart';
 import '../../../../components/heading_widget.dart';
+import '../../../../components/sportboo_snack_bar.dart';
+import '../../../../core/io/api/account_services/account_services.dart';
+import '../../../../core/io/api/handlers/error_handler.dart';
+import '../../../../core/models/api_response.dart/api_response.dart';
+import '../../../../core/models/registration/response/user_registration_response.dart';
 import '../../../../core/theme/colors.dart';
+import '../../../../unils/navigation.dart';
 import '../../../../unils/utils.dart';
+import '../../age_confirmation/age_confirmation_view.dart';
+import 'enter_otp_screen.dart';
 
 class PhoneVerificationScreen extends StatefulWidget {
-  const PhoneVerificationScreen({super.key});
+  final int userId;
+  const PhoneVerificationScreen({super.key, required this.userId});
 
   @override
   State<PhoneVerificationScreen> createState() =>
@@ -18,14 +31,11 @@ class PhoneVerificationScreen extends StatefulWidget {
 
 class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
   FormGroup form() => fb.group({
-        'email': FormControl<String>(
-            validators: [Validators.required, Validators.email]),
         'phone': FormControl<PhoneNumber>(validators: [
           Validators.required,
         ]),
       });
-
-
+  AccountsService accountsService = AccountsService();
 
   @override
   void initState() {
@@ -34,7 +44,6 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         backgroundColor: AppColors.tertiary0,
         appBar: AppBar(
@@ -112,27 +121,15 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                   AppButton(
                       text: 'Verify',
                       onTap: () async {
-                        if (formGroup.valid) {
-                          // send otp
-                          showSportbooLoader();
-                          // var response = await NetworkServices.sendOTP(
-                          //     '${formGroup.control('phoneNumber').value.countryCode}${formGroup.control('phoneNumber').value.nsn}');
-
-                          // if (response.status) {
-                          //   closeSportbooLoader();
-                          //   showSportbooSnackBar(
-                          //       'The OTP Has been sent to your number. ' ?? '',
-                          //       (id) {});
-                          //   _navigate(
-                          //       '${formGroup.control('phoneNumber').value.countryCode}${formGroup.control('phoneNumber').value.nsn}',
-                          //       response.data);
-                          // } else {
-                          //   closeSportbooLoader();
-                          //   showSportbooSnackBar(response.message, (id) {});
-                          // }
-                        } else {
-                          formGroup.markAllAsTouched();
-                        }
+                        // if (formGroup.valid) {
+                        // send otp
+                        showSportbooLoader();
+                        submit(
+                            '+${formGroup.control('phone').value.countryCode}${formGroup.control('phone').value.nsn}',
+                            widget.userId);
+                        // } else {
+                        //   formGroup.markAllAsTouched();
+                        // }
                       }),
                   const Gap(24),
                 ],
@@ -142,15 +139,57 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
         ));
   }
 
-   
+  Future submit(
+    String phone,
+    int userId,
+  ) async {
+    PhoneOtpRequest request = PhoneOtpRequest(phone: phone, userId: userId);
+    showSportbooLoader();
 
-  void _navigate(String phone, Map? data) {
-    // PageRouter.gotoWidget(
-    //     mcontext,
-    //     EnterOtpScreen(
-    //       nextScreen: const AgeConfirmationView(),
-    //       otpRecipient: phone,
-    //       data: data,
-    //     ));
+    ApiResponse response = await accountsService
+        .registerPhone(request)
+        .onError((error, stackTrace) {
+      ApiResponse(
+        message: AppErrorHandler.getErrorMessage(error),
+      );
+    });
+
+    if (response.isSuccess) {
+      closeSportbooLoader();
+      closeSportbooLoader();
+
+      log(response.data.toString());
+      _navigate(phone, userId);
+    } else {
+      closeSportbooLoader();
+      SmartDialog.showNotify(
+          alignment: Alignment.topCenter,
+          msg: response.message.toString(),
+          notifyType: NotifyType.error,
+          displayTime: const Duration(seconds: 4),
+          builder: (_) {
+            return SafeArea(
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(16, 5, 16, 0),
+                child: SportbooSnackBar(
+                    message: response.message.toString(),
+                    onView: (id) => () {}),
+              ),
+            );
+          });
+      showSportbooSnackBar(response.message.toString(), (id) => () {});
+    }
+  }
+
+  void _navigate(String phone, int userId) {
+    PageRouter.gotoWidget(
+        context,
+        EnterOtpScreen(
+          nextScreen: const AgeConfirmationView(),
+          otpRecipient: phone,
+          data: UserRegistrationData(
+              userId: userId, fullname: '', email: '', sportbooId: ''),
+          from: 'phone',
+        ));
   }
 }

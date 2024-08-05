@@ -21,7 +21,9 @@ ApiResponse _$ApiResponseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ApiResponse {
   bool get isSuccess => throw _privateConstructorUsedError;
-  String? get message => throw _privateConstructorUsedError;
+  int? get statusCode => throw _privateConstructorUsedError;
+  dynamic get message =>
+      throw _privateConstructorUsedError; // Use custom Message type
   Map<String, dynamic>? get data => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +38,11 @@ abstract class $ApiResponseCopyWith<$Res> {
           ApiResponse value, $Res Function(ApiResponse) then) =
       _$ApiResponseCopyWithImpl<$Res, ApiResponse>;
   @useResult
-  $Res call({bool isSuccess, String? message, Map<String, dynamic>? data});
+  $Res call(
+      {bool isSuccess,
+      int? statusCode,
+      dynamic message,
+      Map<String, dynamic>? data});
 }
 
 /// @nodoc
@@ -53,6 +59,7 @@ class _$ApiResponseCopyWithImpl<$Res, $Val extends ApiResponse>
   @override
   $Res call({
     Object? isSuccess = null,
+    Object? statusCode = freezed,
     Object? message = freezed,
     Object? data = freezed,
   }) {
@@ -61,10 +68,14 @@ class _$ApiResponseCopyWithImpl<$Res, $Val extends ApiResponse>
           ? _value.isSuccess
           : isSuccess // ignore: cast_nullable_to_non_nullable
               as bool,
+      statusCode: freezed == statusCode
+          ? _value.statusCode
+          : statusCode // ignore: cast_nullable_to_non_nullable
+              as int?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -81,7 +92,11 @@ abstract class _$$ApiResponseImplCopyWith<$Res>
       __$$ApiResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isSuccess, String? message, Map<String, dynamic>? data});
+  $Res call(
+      {bool isSuccess,
+      int? statusCode,
+      dynamic message,
+      Map<String, dynamic>? data});
 }
 
 /// @nodoc
@@ -96,6 +111,7 @@ class __$$ApiResponseImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isSuccess = null,
+    Object? statusCode = freezed,
     Object? message = freezed,
     Object? data = freezed,
   }) {
@@ -104,10 +120,14 @@ class __$$ApiResponseImplCopyWithImpl<$Res>
           ? _value.isSuccess
           : isSuccess // ignore: cast_nullable_to_non_nullable
               as bool,
+      statusCode: freezed == statusCode
+          ? _value.statusCode
+          : statusCode // ignore: cast_nullable_to_non_nullable
+              as int?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       data: freezed == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
@@ -120,7 +140,10 @@ class __$$ApiResponseImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ApiResponseImpl implements _ApiResponse {
   const _$ApiResponseImpl(
-      {this.isSuccess = false, this.message, final Map<String, dynamic>? data})
+      {this.isSuccess = false,
+      this.statusCode,
+      this.message,
+      final Map<String, dynamic>? data})
       : _data = data;
 
   factory _$ApiResponseImpl.fromJson(Map<String, dynamic> json) =>
@@ -130,8 +153,12 @@ class _$ApiResponseImpl implements _ApiResponse {
   @JsonKey()
   final bool isSuccess;
   @override
-  final String? message;
+  final int? statusCode;
+  @override
+  final dynamic message;
+// Use custom Message type
   final Map<String, dynamic>? _data;
+// Use custom Message type
   @override
   Map<String, dynamic>? get data {
     final value = _data;
@@ -143,7 +170,7 @@ class _$ApiResponseImpl implements _ApiResponse {
 
   @override
   String toString() {
-    return 'ApiResponse(isSuccess: $isSuccess, message: $message, data: $data)';
+    return 'ApiResponse(isSuccess: $isSuccess, statusCode: $statusCode, message: $message, data: $data)';
   }
 
   @override
@@ -153,13 +180,19 @@ class _$ApiResponseImpl implements _ApiResponse {
             other is _$ApiResponseImpl &&
             (identical(other.isSuccess, isSuccess) ||
                 other.isSuccess == isSuccess) &&
-            (identical(other.message, message) || other.message == message) &&
+            (identical(other.statusCode, statusCode) ||
+                other.statusCode == statusCode) &&
+            const DeepCollectionEquality().equals(other.message, message) &&
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, isSuccess, message,
+  int get hashCode => Object.hash(
+      runtimeType,
+      isSuccess,
+      statusCode,
+      const DeepCollectionEquality().hash(message),
       const DeepCollectionEquality().hash(_data));
 
   @JsonKey(ignore: true)
@@ -179,7 +212,8 @@ class _$ApiResponseImpl implements _ApiResponse {
 abstract class _ApiResponse implements ApiResponse {
   const factory _ApiResponse(
       {final bool isSuccess,
-      final String? message,
+      final int? statusCode,
+      final dynamic message,
       final Map<String, dynamic>? data}) = _$ApiResponseImpl;
 
   factory _ApiResponse.fromJson(Map<String, dynamic> json) =
@@ -188,8 +222,10 @@ abstract class _ApiResponse implements ApiResponse {
   @override
   bool get isSuccess;
   @override
-  String? get message;
+  int? get statusCode;
   @override
+  dynamic get message;
+  @override // Use custom Message type
   Map<String, dynamic>? get data;
   @override
   @JsonKey(ignore: true)
