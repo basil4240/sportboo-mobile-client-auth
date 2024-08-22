@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../core/theme/colors.dart';
-import '../unils/utils.dart';
+import '../core/unils/utils.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({

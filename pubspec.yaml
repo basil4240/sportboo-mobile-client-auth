@@ -31,13 +31,16 @@ dependencies:
   transitioned_indexed_stack: ^1.0.2
   reactive_forms: ^16.1.1
   reactive_phone_form_field: ^2.0.1
-  shared_preferences: ^2.2.2
+  shared_preferences: ^2.3.2
   sticky_headers: ^0.3.0+2
   dio: ^5.4.1
   flutter_switch: ^0.3.2
   credit_card_validator: ^2.1.0
   credit_card_type_detector: ^3.0.0
-  get: ^4.6.6
+  # get: ^4.6.6
+  equatable: ^2.0.5
+  get_it: ^7.6.7
+  flutter_bloc: ^8.1.4
 
   firebase_core: ^2.27.2
   firebase_messaging: ^14.7.21
@@ -45,7 +48,7 @@ dependencies:
   infinite_scroll_pagination: ^4.0.0
   awesome_notifications: ^0.8.2
   scroll_edge_listener: ^0.1.1
-  intl: ^0.18.1
+  intl: ^0.19.0
   local_auth: ^2.2.0
   country_state_city: ^0.1.6
   flutter_timer_countdown: ^1.0.7
@@ -53,13 +56,16 @@ dependencies:
   url_launcher: ^6.2.6
   share_plus: ^9.0.0
   image_picker: ^1.1.1
+  dartz: ^0.10.1
+  google_sign_in: ^6.2.1
+  flutter_facebook_auth: ^6.0.4
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
   json_serializable: ^6.7.1
   build_runner: ^2.4.8
 

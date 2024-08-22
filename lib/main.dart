@@ -4,20 +4,18 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:no_screenshot/no_screenshot.dart';
-import 'package:provider/provider.dart';
+import 'package:sportboo_mobile_client/core/services/injection_container.dart';
 // import 'package:sportboo_mobile_client/core/services/notification_service.dart';
-import 'package:sportboo_mobile_client/unils/utils.dart';
 
 import 'core/providers/providers_list.dart';
 import 'core/services/notification_controller.dart';
 import 'core/theme/theme.dart';
 import 'firebase_options.dart';
-import 'modules/authentication/login/login_view.dart';
+import 'src/auth/presentation/view/login_view.dart';
 // import 'modules/profile/sub_screens/settings/sub_screen/security/security_viewmodel.dart';
 
 Future<void> backgroundHandler(RemoteMessage msg) async {
@@ -33,6 +31,7 @@ Future<void> backgroundHandler(RemoteMessage msg) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initLocalStorage();
+  await init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -73,18 +72,18 @@ class _MyAppState extends State<MyApp> {
       systemNavigationBarColor: Colors.transparent,
     ));
 
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: ProvidersList.getProviders(),
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,
         splitScreenMode: false,
         builder: (context, child) {
-          return GetMaterialApp(
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'SportBoo',
             theme: appLightTheme,
-            home: const LoginView(),
+            home: LoginView(),
             navigatorKey: MyApp.navigatorKey,
             builder: FlutterSmartDialog.init(),
           );

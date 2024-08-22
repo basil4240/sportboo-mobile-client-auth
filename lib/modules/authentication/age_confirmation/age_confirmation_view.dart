@@ -5,9 +5,9 @@ import 'package:gap/gap.dart';
 import '../../../components/base_widget.dart';
 import '../../../components/button_widget.dart';
 import '../../../core/theme/colors.dart';
-import '../../../unils/navigation.dart';
-import '../../../unils/utils.dart';
-import '../add_competitions/add_competitions_view.dart';
+import '../../../core/unils/navigation.dart';
+import '../../../core/unils/utils.dart';
+import '../../../src/onboarding/presentation/views/add_competitions_view.dart';
 import 'age_confirmation_viewmodel.dart';
 
 class AgeConfirmationView extends StatelessWidget {
@@ -106,7 +106,7 @@ class AgeConfirmationView extends StatelessWidget {
                               onTap: () {
                                 showSportbooSnackBar(
                                     'Apologies, you’re not yet of the required age. Please return when you’re 18+.',
-                                    (id) {});
+                                    (_) {});
                               },
                             ),
                           ],

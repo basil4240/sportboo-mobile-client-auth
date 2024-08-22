@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 import '../../core/theme/colors.dart';
-import '../../unils/utils.dart';
+import '../../core/unils/utils.dart';
 
 class SportbooNoInternetConnectionWidget extends StatelessWidget {
   final String title;

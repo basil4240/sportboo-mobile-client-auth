@@ -6,7 +6,7 @@ import '../../../models/market_data.dart';
 import '../../components/base_widget.dart';
 import '../../components/button_widget.dart';
 import '../../core/theme/colors.dart';
-import '../../unils/navigation.dart';
+import '../../core/unils/navigation.dart';
 import 'filtter_bottom_sheet_model.dart';
 
 class FilterBottomSheet extends StatelessWidget {

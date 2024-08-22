@@ -1,8 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../modules/authentication/network_service.dart';
-import '../../unils/utils.dart';
+import '../../modules/authentication/auth_services.dart';
+import '../unils/utils.dart';
 
 class NotificationProvider extends ChangeNotifier{
 

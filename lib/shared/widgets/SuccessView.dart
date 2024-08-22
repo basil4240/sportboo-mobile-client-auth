@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:sportboo_mobile_client/core/unils/navigation.dart';
 
 import '../../components/button_widget.dart';
 import '../../core/theme/colors.dart';
-import '../../unils/utils.dart';
+import '../../core/unils/utils.dart';
 
 class SuccessView extends StatelessWidget {
   final String message;
   final String buttonTitle;
-  const SuccessView({super.key, required this.message, required this.buttonTitle});
+  final Widget? nextScreen;
+  const SuccessView({super.key, required this.message, required this.buttonTitle, this.nextScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +47,13 @@ class SuccessView extends StatelessWidget {
                       Gap(40.h),
                       Text(
                         'Success',
-                        style: getTextTheme(context).headline4,
+                        style: getTextTheme(context).headlineMedium,
                       ),
                       Gap(16.h),
                       Text(
                         message,
                         textAlign: TextAlign.center,
-                        style: getTextTheme(context).bodyText1!.copyWith(
+                        style: getTextTheme(context).bodyLarge!.copyWith(
                           color: AppColors.tertiary8,
                         ),
                       ),
@@ -62,7 +64,7 @@ class SuccessView extends StatelessWidget {
                 AppButton(
                     text: buttonTitle,
                     onTap: () {
-                      Navigator.of(context).pop();
+                      nextScreen != null ? PageRouter.gotoWidget(context, nextScreen!) : Navigator.of(context).pop();
                     }),
               ],
             ),

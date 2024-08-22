@@ -10,11 +10,11 @@ import '../../../core/theme/colors.dart';
 import '../../../shared/widgets/SuccessView.dart';
 import '../../../shared/widgets/competition_team_filter_bottom_sheet.dart';
 import '../../../shared/widgets/pill_widget.dart';
-import '../../../unils/navigation.dart';
-import '../../../unils/utils.dart';
-import '../add_competitions/add_competitions_view.dart';
+import '../../../core/unils/navigation.dart';
+import '../../../core/unils/utils.dart';
+import '../../../src/onboarding/presentation/views/add_competitions_view.dart';
 import '../favourite_team_card.dart';
-import '../login/login_view.dart';
+import '../../../src/auth/presentation/view/login_view.dart';
 import 'add_team_view_model.dart';
 
 

@@ -8,8 +8,8 @@ import 'package:sportboo_mobile_client/core/home/tab_navigator.dart';
 
 // import '../../modules/profile/sub_screens/account/verification/account_verification_viewmodel.dart';
 // import '../../modules/profile/sub_screens/activities/tabs/my_activities/viewmodel/my_activities_viewmodel.dart';
-import '../../unils/local_storage.dart';
-import '../../unils/utils.dart';
+import '../unils/local_storage.dart';
+import '../unils/utils.dart';
 import '../providers/notification_provider.dart';
 import '../theme/colors.dart';
 
@@ -28,10 +28,10 @@ class _HomePageState extends State<HomePage> {
   // Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => new AuthScreen()));
   @override
   void initState() {
-    var sportbooUser = Provider.of<SportbooUserProvider>(context, listen: false).sportbooUser;
-    localStorage.setItem(MyStorage.jwt, sportbooUser!.accessToken);
-    Provider.of<SportbooUserProvider>(context, listen: false).fetchProfileImage();
-    Provider.of<NotificationProvider>(context, listen: false).setupToken(sportbooUser.accessToken);
+    // var sportbooUser = Provider.of<SportbooUserProvider>(context, listen: false).sportbooUser;
+    // localStorage.setItem(MyStorage.jwt, sportbooUser!.accessToken);
+    // Provider.of<SportbooUserProvider>(context, listen: false).fetchProfileImage();
+    // Provider.of<NotificationProvider>(context, listen: false).setupToken(sportbooUser.accessToken);
     // Provider.of<MyActivitiesViewmodel>(context, listen: false).fetchStakes();
     // Provider.of<AccountVerificationViewmodel>(context, listen: false)
     //     .fetchVerificationData();
