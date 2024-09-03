@@ -33,4 +33,6 @@ abstract class AuthRepo {
   ResultFuture<void> changePassword({required String password});
 
   ResultFuture<SportbooUserEntity> loginWithGoogle({required String idToken});
+
+  ResultFuture<SportbooUserEntity> loginWithFacebook({required String accessToken});
 }

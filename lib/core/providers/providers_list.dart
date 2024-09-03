@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:sportboo_mobile_client/src/auth/presentation/cubit/auth_cubit.dart';
+import 'package:sportboo_mobile_client/src/onboarding/presentation/cubit/onboarding_cubit.dart';
 /*import 'package:sportboo_mobile_client/modules/livescore/sub_screens/club_info/tabs/matches/viewmodels/match_viewmodel.dart';
 import 'package:sportboo_mobile_client/modules/livescore/sub_screens/favourite/viewmodel/favourite_viewmodel.dart';
 import 'package:sportboo_mobile_client/modules/livescore/sub_screens/league_match_review/tabs/line_ups/live_chat/viewmodel/live_chat_viewmodel.dart';
@@ -46,7 +47,8 @@ class ProvidersList {
         // ChangeNotifierProvider(create: (_) => SportbooUserProvider()),
         // ChangeNotifierProvider(create: (_) => CreateOddsProvider()),
         ChangeNotifierProvider(create: (_) => NotificationProvider()),
-        BlocProvider(create: (_) => sl<AuthCubit>())
+        BlocProvider(create: (_) => sl<AuthCubit>()),
+        BlocProvider(create: (_) => sl<OnboardingCubit>()),
 
         /*
          Livescores tab

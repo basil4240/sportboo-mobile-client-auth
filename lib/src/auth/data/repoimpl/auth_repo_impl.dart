@@ -136,4 +136,15 @@ class AuthRepoImpl extends AuthRepo {
     }
   }
   
+  @override
+  ResultFuture<SportbooUserEntity> loginWithFacebook({required String accessToken}) async {
+    try {
+      final result = await _authRemoteDataSource.loginWithFacebook(accessToken: accessToken);
+
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.message, statusCode: e.statusCode));
+    }
+  }
+  
 }

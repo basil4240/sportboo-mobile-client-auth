@@ -1,8 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -21,13 +20,8 @@ import '../../../../components/button_widget.dart';
 import '../../../../components/heading_widget.dart';
 import '../../../../core/theme/colors.dart';
 
-const List<String> scopes = <String>[
-  'email',
-  // 'https://www.googleapis.com/auth/contacts.readonly',
-];
-
 GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: scopes,
+  scopes: ['email'],
 );
 
 class LoginView extends StatefulWidget {
@@ -232,24 +226,35 @@ class _LoginViewState extends State<LoginView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                          child: _buildSocialLoginContainer('apple'),
+                          child: _buildSocialLoginContainer(icon: 'apple'),
                         ),
                         const Gap(16),
                         Expanded(
-                          child: _buildSocialLoginContainer('Facebook'),
-                        ),
-                        const Gap(16),
-                        Expanded(
-                          child: GestureDetector(
+                          child: _buildSocialLoginContainer(
+                            icon: 'Facebook',
                             onTap: () async {
-                              try {
-                                await _googleSignIn.signIn().then((value) => context.read<AuthCubit>().loginWithGoogle(idToken: value?.id ?? ''));
-                                
-                              } catch (e) {
-                                showSportbooSnackBar(e.toString(), (_) {});
-                              }
+                              await FacebookAuth.instance.login().then((result) {
+                                if (result.status == LoginStatus.success) {
+                                  // User logged in
+                                  final AccessToken accessToken = result.accessToken!;
+
+                                  context.read<AuthCubit>().loginWithFacebook(accessToken: accessToken.token);
+                                }
+                              });
                             },
-                            child: _buildSocialLoginContainer('google'),
+                          ),
+                        ),
+                        const Gap(16),
+                        Expanded(
+                          child: _buildSocialLoginContainer(
+                            icon: 'google',
+                            onTap: () async {
+                              await _googleSignIn.signIn().then((result) {
+                                result?.authentication.then((googleKey) {
+                                  context.read<AuthCubit>().loginWithGoogle(idToken: googleKey.idToken ?? '');
+                                });
+                              });
+                            },
                           ),
                         ),
                       ],
@@ -300,19 +305,23 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Container _buildSocialLoginContainer(String icon) {
-    return Container(
-      height: 56,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: AppColors.tertiary3,
-        borderRadius: BorderRadius.circular(16.r),
-      ),
-      child: Center(
-        child: SvgPicture.asset(
-          getSvg(icon),
-          height: 32,
-          width: 32,
+  Widget _buildSocialLoginContainer(
+      {required String icon, void Function()? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 56,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: AppColors.tertiary3,
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        child: Center(
+          child: SvgPicture.asset(
+            getSvg(icon),
+            height: 32,
+            width: 32,
+          ),
         ),
       ),
     );

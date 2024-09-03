@@ -54,9 +54,14 @@ class HttpUtil {
         queryParameters: queryParameters,
         options: requestOptions,
       );
+      print(response);
       return response.data;
     } on DioException catch (e) {
-      throw ErrorEntity(code: e.response?.statusCode ?? 500, message: e.response?.data?['message'] ?? 'Network Error');
+      print(e.response?.statusCode);
+      print(e.response?.data);
+      throw ErrorEntity(
+          code: e.response?.statusCode ?? 500,
+          message: e.response?.data?['message'] ?? 'Network Error');
     }
   }
 
@@ -82,6 +87,38 @@ class HttpUtil {
         queryParameters: queryParameters,
         options: requestOptions,
       );
+      print(response);
+      return response.data;
+    } on DioException catch (e) {
+      print(e.response?.statusCode);
+      print(e.response?.data);
+      throw ErrorEntity(code: e.response?.statusCode ?? 500, message: e.response?.data?['message'] ?? 'Network Error');
+    }
+  }
+
+  // Delete Method
+  Future delete(
+    String path, {
+    Object? data,
+    DataMap? queryParameters,
+    Options? options,
+  }) async {
+    Options requestOptions = options ?? Options();
+    requestOptions.headers = requestOptions.headers ?? {};
+    DataMap? authorization = getAuthorizationHeader();
+
+    if (authorization != null) {
+      requestOptions.headers?.addAll(authorization);
+    }
+
+    try {
+      var response = await _dio.delete(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: requestOptions,
+      );
+
       print(response);
       return response.data;
     } on DioException catch (e) {

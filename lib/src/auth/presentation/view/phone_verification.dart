@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
-import 'package:sportboo_mobile_client/modules/authentication/age_confirmation/age_confirmation_view.dart';
+import 'package:sportboo_mobile_client/src/onboarding/presentation/views/age_confirmation_view.dart';
 import 'package:sportboo_mobile_client/src/auth/presentation/cubit/auth_cubit.dart';
 import 'package:sportboo_mobile_client/src/auth/presentation/view/enter_otp_screen.dart';
 import '../../../../components/button_widget.dart';

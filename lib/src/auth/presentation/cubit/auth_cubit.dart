@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:sportboo_mobile_client/src/auth/domain/entities/sportboo_user_entity.dart';
 import 'package:sportboo_mobile_client/src/auth/domain/usecases/change_password_usecase.dart';
 import 'package:sportboo_mobile_client/src/auth/domain/usecases/login_with_email_usecase.dart';
+import 'package:sportboo_mobile_client/src/auth/domain/usecases/login_with_facebook_usecase.dart';
 import 'package:sportboo_mobile_client/src/auth/domain/usecases/login_with_google_usecase.dart';
 import 'package:sportboo_mobile_client/src/auth/domain/usecases/register_user_usecase.dart';
 import 'package:sportboo_mobile_client/src/auth/domain/usecases/request_forgot_password_otp_to_email_usecase.dart';
@@ -28,6 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
     this.verifyForgetPasswordOtpUsecase,
     this.changePasswordUsecase,
     this.loginWithGoogleUsecase,
+    this.loginWithFacebookUsecase,
   ) : super(AuthInitial());
 
   final LoginWithEmailUsecase loginWithEmailUsecase;
@@ -41,6 +43,7 @@ class AuthCubit extends Cubit<AuthState> {
   final VerifyForgetPasswordOtpUsecase verifyForgetPasswordOtpUsecase;
   final ChangePasswordUsecase changePasswordUsecase;
   final LoginWithGoogleUsecase loginWithGoogleUsecase;
+  final LoginWithFacebookUsecase loginWithFacebookUsecase;
 
   Future<void> loginWithEmail({required String email, required String password}) async {
     emit(AuthLoading());
@@ -161,6 +164,17 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
 
     final result = await loginWithGoogleUsecase.call(LoginWithGoogleParams(idToken: idToken));
+
+    result.fold(
+      (failure) => emit(AuthError(failure.statusCode, failure.message)), 
+      (user) => emit(LoggedIn(user)),
+    );
+  }
+
+  Future<void> loginWithFacebook({required String accessToken}) async {
+    emit(AuthLoading());
+
+    final result = await loginWithFacebookUsecase.call(LoginWithFacebookParams(accessToken: accessToken));
 
     result.fold(
       (failure) => emit(AuthError(failure.statusCode, failure.message)), 

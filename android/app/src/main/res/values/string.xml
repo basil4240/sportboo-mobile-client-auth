@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="default_notification_channel_id" translatable="false">SportBoo</string>
+    <string name="facebook_app_id">1528119891132774</string>
+    <string name="facebook_client_token">d52915ecad508320bcf719fffc7a600c</string>
 </resources>

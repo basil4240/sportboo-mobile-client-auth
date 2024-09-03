@@ -7,14 +7,13 @@ import '../../core/theme/colors.dart';
 import '../../models/competition.dart';
 import '../../models/team.dart';
 
-
 class FavouriteTeamCard extends StatefulWidget {
   final String flag;
   final String title;
   final String subtitle;
   final dynamic payload;
   final int id;
-  final Function(bool isFavourite, int favouriteId, String name, String ingUrl)
+  final Function(bool isFavourite)
       onFavourite;
 
   const FavouriteTeamCard({
@@ -66,19 +65,25 @@ class _FavouriteTeamCardState extends State<FavouriteTeamCard> {
             width: 28,
             frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
               if (frame == null) {
-                return widget.payload is Team ?
-                Container(
-                  width: 32.h,
-                  height: 32.h,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.tertiaryTint4,
-                      border: Border.all(
-                        color: AppColors.tertiary6,
-                      )),
-                ) : SizedBox(
-              height: 20, width: 20,
-              child: CircularProgressIndicator(strokeWidth: 1,));
+                return widget.payload is Team
+                    ? Container(
+                        width: 32.h,
+                        height: 32.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.tertiaryTint4,
+                          border: Border.all(
+                            color: AppColors.tertiary6,
+                          ),
+                        ),
+                      )
+                    : const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 1,
+                        ),
+                      );
               } else {
                 return child;
               }
@@ -99,10 +104,11 @@ class _FavouriteTeamCardState extends State<FavouriteTeamCard> {
                 Text(
                   widget.title,
                   style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Inter',
-                      fontSize: 16.sp,
-                      color: AppColors.tertiary9),
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Inter',
+                    fontSize: 16.sp,
+                    color: AppColors.tertiary9,
+                  ),
                 ),
                 const Gap(2),
                 Text(
@@ -120,16 +126,8 @@ class _FavouriteTeamCardState extends State<FavouriteTeamCard> {
             onTap: () {
               setState(() {
                 _isFavourite = !_isFavourite;
+                widget.onFavourite(_isFavourite);
               });
-
-              if (widget.payload is Competition) {
-                widget.onFavourite(_isFavourite, widget.id, widget.title,
-                    (widget.payload as Competition).imagePath);
-              }
-              if (widget.payload is Team) {
-                widget.onFavourite(_isFavourite, widget.id, widget.title,
-                    (widget.payload as Team).imagePath);
-              }
             },
             child: _isFavourite
                 ? SvgPicture.asset('assets/svgs/brocken_star.svg')

@@ -30,6 +30,8 @@ abstract class AuthRemoteDatasource {
   Future<void> changePassword({required String password});
 
   Future<SportbooUser> loginWithGoogle({required String idToken});
+
+  Future<SportbooUser> loginWithFacebook({required String accessToken});
 }
 
 class AuthRemoteDatasourceImpl extends AuthRemoteDatasource {
@@ -98,7 +100,10 @@ class AuthRemoteDatasourceImpl extends AuthRemoteDatasource {
   @override
   Future<void> verifyPhoneNumber({required String otp}) async {
     try {
-      await _httpUtil.post('/users/auth/register/phone/verify', data: {'otp': otp, 'userId': _userId});
+      final response = await _httpUtil.post('/users/auth/register/phone/verify', data: {'otp': otp, 'userId': _userId});
+
+      await saveToken(response['data']['accessToken']);
+
     } on ErrorEntity catch (e) {
       throw ServerException(message: e.message, statusCode: e.code);
     }
@@ -168,6 +173,20 @@ class AuthRemoteDatasourceImpl extends AuthRemoteDatasource {
       return data;
     }  on ErrorEntity catch (e) {
       throw ServerException(message: e.message, statusCode: e.code);
+    }
+  }
+  
+  @override
+  Future<SportbooUser> loginWithFacebook({required String accessToken}) async {
+    try {
+      final response = await _httpUtil.post('/users/auth/facebook', data: {'accessToken': accessToken});
+
+      SportbooUser data = SportbooUser.fromJson(response['data']);
+      await saveToken(data.accessToken!);
+
+      return data;
+    } on ErrorEntity catch (e) {
+      throw ErrorEntity(code: e.code, message: e.message);
     }
   }
 }
